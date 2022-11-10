@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Currency Exchange Rates</string>
+    <string name="app_hint">Currency Exchange Rate Tracking</string>
+</resources>
