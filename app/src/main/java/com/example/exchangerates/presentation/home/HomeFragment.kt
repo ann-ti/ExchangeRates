@@ -13,7 +13,7 @@ import com.example.exchangerates.databinding.FragmentHomeBinding
 import com.example.exchangerates.presentation.home.adapter.CurrencyAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment: Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModel<HomeViewModel>()
@@ -32,7 +32,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         setRecyclerViewCurrency()
-
+        getCurrency()
     }
 
     private fun setRecyclerViewCurrency() {
@@ -41,6 +41,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
         }
+    }
+
+    private fun getCurrency() {
+        viewModel.getCurrency(binding.spinner.selectedItem.toString())
     }
 
 

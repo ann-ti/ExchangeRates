@@ -34,15 +34,6 @@
         app:layout_constraintStart_toEndOf="@+id/imgFlag"
         app:layout_constraintTop_toTopOf="@+id/imgFlag" />
 
-    <TextView
-        android:id="@+id/txtLongCurrency"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="LongCurrency"
-        app:layout_constraintEnd_toStartOf="@+id/txtValueCurrency"
-        app:layout_constraintStart_toEndOf="@+id/imgFlag"
-        app:layout_constraintTop_toBottomOf="@+id/txtShortCurrency" />
 
     <TextView
         android:id="@+id/txtValueCurrency"

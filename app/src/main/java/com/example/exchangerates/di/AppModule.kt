@@ -1,6 +1,7 @@
 package com.example.exchangerates.di
 
 import com.example.exchangerates.data.network.CurrencyApi
+import com.example.exchangerates.data.network.NetInterceptor
 import com.example.exchangerates.data.network.RetrofitFactory
 import com.example.exchangerates.data.repository.CurrencyRepository
 import com.example.exchangerates.data.repository.CurrencyRepositoryImpl
@@ -16,9 +17,14 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL = "https://api.exchangeratesapi.io/"
+const val BASE_URL = "https://api.apilayer.com/"
+const val API_KEY = "X0GIuqUQZnDNG1ff1Xr1RZnJCTGxSfXB"
 
 val appModule = module {
+
+    single {
+        RetrofitFactory(okHttpClient = get())
+    }
 
     single {
         val okHttp = OkHttpClient().newBuilder()
@@ -26,10 +32,12 @@ val appModule = module {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder().addHeader("apikey", API_KEY).build()
+                chain.proceed(request)
+            }
             .build()
-    }
-    single {
-        get<RetrofitFactory>().makeService<CurrencyApi>(BASE_URL)
+        RetrofitFactory(okHttp).makeService<CurrencyApi>(BASE_URL)
     }
 
     single {
