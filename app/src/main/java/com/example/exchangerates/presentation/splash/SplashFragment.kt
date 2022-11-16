@@ -40,7 +40,7 @@ class SplashFragment: Fragment(R.layout.fragment_splash) {
     }
 
     private fun navigate() {
-        val action = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
+        val action = SplashFragmentDirections.actionSplashFragmentToNavigatorFragment()
         findNavController().navigate(action)
     }
 }

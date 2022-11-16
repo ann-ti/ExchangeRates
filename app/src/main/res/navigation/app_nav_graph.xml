@@ -11,12 +11,21 @@
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_splashFragment_to_navigatorFragment"
+            app:destination="@id/navigatorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.exchangerates.presentation.home.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        android:id="@+id/navigatorFragment"
+        android:name="com.example.exchangerates.presentation.navigator.NavigatorFragment"
+        android:label="NavigatorFragment"
+        tools:layout="@layout/fragment_navigator">
+        <action
+            android:id="@+id/action_navigatorFragment_to_sortFragment"
+            app:destination="@id/sortFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.example.exchangerates.presentation.sort.SortFragment"
+        android:label="SortFragment"
+        tools:layout="@layout/fragment_sort"/>
 </navigation>
