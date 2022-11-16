@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CurrencyData(
+data class CurrencyResponse(
     @Json(name = "base")
     val base: String,
     @Json(name = "date")

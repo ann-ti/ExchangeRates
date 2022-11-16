@@ -2,17 +2,16 @@ package com.example.exchangerates.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.load.engine.Resource
-import com.example.exchangerates.data.model.CurrencyData
 import com.example.exchangerates.data.model.Rates
+import com.example.exchangerates.data.model.RatesName
 import com.example.exchangerates.domain.CurrencyUseCase
 import com.example.exchangerates.utils.LoadState
 import com.example.exchangerates.utils.Request
-import kotlinx.coroutines.Dispatchers
+import com.example.exchangerates.utils.listOfCurrency
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.lang.Math.round
+import kotlin.random.Random
 
 class HomeViewModel(
     private val currencyUseCase: CurrencyUseCase
@@ -20,6 +19,9 @@ class HomeViewModel(
 
     private val loadStateFlow = MutableStateFlow<LoadState>(LoadState.EMPTY)
     val loadState: StateFlow<LoadState> = loadStateFlow
+
+    private val ratesStateFlow = MutableStateFlow<List<RatesName>>(emptyList())
+    val ratesState: StateFlow<List<RatesName>> = ratesStateFlow
 
     fun getCurrency(base: String){
         viewModelScope.launch {
@@ -30,6 +32,11 @@ class HomeViewModel(
                     }
                     is Request.Success -> {
                         loadStateFlow.value = LoadState.SUCCESS
+                        val currency= requestState.data.rates
+                        val listOfValueCurrency = listOfCurrency.map {
+                            getRateForCurrency(it, currency)?.let { it1 -> RatesName(it, it1) }
+                        }
+                        ratesStateFlow.value = listOfValueCurrency as List<RatesName>
                     }
                     is Request.Error -> {
                         loadStateFlow.value = LoadState.ERROR

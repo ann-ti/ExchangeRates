@@ -5,21 +5,11 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imgFlag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/purple_200"
-        app:layout_constraintTop_toBottomOf="@+id/imgFlag"
+        app:layout_constraintTop_toBottomOf="@+id/txtShortCurrency"
         tools:layout_editor_absoluteX="0dp"
         android:layout_marginTop="16dp"/>
 
@@ -27,12 +17,11 @@
         android:id="@+id/txtShortCurrency"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="16dp"
         android:text="ShortCurrency"
         app:layout_constraintEnd_toStartOf="@+id/txtValueCurrency"
-        app:layout_constraintStart_toEndOf="@+id/imgFlag"
-        app:layout_constraintTop_toTopOf="@+id/imgFlag" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView

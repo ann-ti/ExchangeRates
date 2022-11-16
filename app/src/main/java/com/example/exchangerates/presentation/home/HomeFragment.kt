@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exchangerates.R
@@ -44,7 +45,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun getCurrency() {
-        viewModel.getCurrency(binding.spinner.selectedItem.toString())
+        binding.buttonSearch.setOnClickListener {
+            viewModel.getCurrency(binding.spinner.selectedItem.toString())
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.ratesState.collect{
+                adapterCurrency.items = it
+            }
+        }
+
     }
 
 

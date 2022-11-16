@@ -8,18 +8,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
-
-fun dateFormat(oldStringDate: Long): String =
-    SimpleDateFormat("dd.MM.yyyy", Locale(getCountry())).format(Date(oldStringDate))
-
-private fun getCountry(): String =
-    Locale.getDefault().country.lowercase(Locale.ROOT)
 
 enum class LoadState {
     LOADING,
@@ -29,9 +21,8 @@ enum class LoadState {
 }
 
 object RequestUtils {
-
-    fun <T> requestFlow(requestFunc: suspend  () -> T): Flow<Request<T>> {
-        return flow<Request<T>>{
+    fun <T> requestFlow(requestFunc: suspend () -> T): Flow<Request<T>> {
+        return flow<Request<T>> {
             emit(Request.Success(requestFunc()))
         }.onStart {
             emit(Request.Loading())
@@ -40,3 +31,38 @@ object RequestUtils {
         }
     }
 }
+
+val listOfCurrency = listOf(
+    "CAD",
+    "HKD",
+    "ISK",
+    "EUR",
+    "PHP",
+    "DKK",
+    "HUF",
+    "CZK",
+    "AUD",
+    "RON",
+    "SEK",
+    "IDR",
+    "INR",
+    "BRL",
+    "RUB",
+    "HRK",
+    "JPY",
+    "THB",
+    "CHF",
+    "SGD",
+    "PLN",
+    "BGN",
+    "CNY",
+    "NOK",
+    "NZD",
+    "ZAR",
+    "USD",
+    "MXN",
+    "ILS",
+    "GBP",
+    "KRW",
+    "MYR"
+)
