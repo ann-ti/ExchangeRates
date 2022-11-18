@@ -7,6 +7,7 @@ import com.example.exchangerates.data.repository.CurrencyRepository
 import com.example.exchangerates.data.repository.CurrencyRepositoryImpl
 import com.example.exchangerates.domain.CurrencyUseCase
 import com.example.exchangerates.domain.CurrencyUseCaseImpl
+import com.example.exchangerates.presentation.favorite.FavoriteViewModel
 import com.example.exchangerates.presentation.home.HomeViewModel
 import com.example.exchangerates.utils.MoshiInstantAdapter
 import com.squareup.moshi.Moshi
@@ -61,6 +62,12 @@ val appModule = module {
 
     viewModel {
         HomeViewModel(
+            currencyUseCase = get()
+        )
+    }
+
+    viewModel {
+        FavoriteViewModel(
             currencyUseCase = get()
         )
     }

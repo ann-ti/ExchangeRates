@@ -1,17 +1,16 @@
-package com.example.exchangerates.presentation.home.adapter
+package com.example.exchangerates.presentation.favorite.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.exchangerates.data.model.CurrencyResponse
-import com.example.exchangerates.data.model.Rates
 import com.example.exchangerates.data.model.RatesName
+import com.example.exchangerates.presentation.home.adapter.CurrencyAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class CurrencyAdapter(itemSelected: CurrencyAdapterDelegate.ItemSelected) :
+class FavoriteAdapter(itemSelected: FavoriteAdapterDelegate.ItemSelected) :
     AsyncListDifferDelegationAdapter<RatesName>(ApplicationDiffUtilCallback()) {
 
     init {
         delegatesManager
-            .addDelegate(CurrencyAdapterDelegate(itemSelected))
+            .addDelegate(FavoriteAdapterDelegate(itemSelected))
     }
 
     class ApplicationDiffUtilCallback : DiffUtil.ItemCallback<RatesName>() {

@@ -2,6 +2,7 @@ package com.example.exchangerates
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.exchangerates.data.db.Database
 import com.example.exchangerates.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,6 +22,7 @@ class Application : Application() {
             androidContext(this@Application)
             modules(appModule)
         }
+        Database.init(this)
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.exchangerates.presentation.home.adapter
+package com.example.exchangerates.presentation.favorite.adapter
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +9,9 @@ import com.example.exchangerates.databinding.ItemCurrencyBinding
 import com.example.exchangerates.utils.inflate
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
-class CurrencyAdapterDelegate(private val itemSelected: ItemSelected) :
-    AbsListItemAdapterDelegate<RatesName, RatesName, CurrencyAdapterDelegate.Holder>() {
+
+class FavoriteAdapterDelegate(private val itemSelected: ItemSelected) :
+    AbsListItemAdapterDelegate<RatesName, RatesName, FavoriteAdapterDelegate.Holder>() {
 
     override fun isForViewType(
         item: RatesName,
@@ -42,7 +43,7 @@ class CurrencyAdapterDelegate(private val itemSelected: ItemSelected) :
             binding.txtValueCurrency.text = ratesName.valueRates.toString()
             binding.txtShortCurrency.text = ratesName.nameRates
             binding.buttonStar.setOnClickListener {
-                itemSelected.addToFavorite(ratesName)
+                itemSelected.removeFromFavorite(ratesName)
             }
             if (ratesName.isFavorite) {
                 binding.buttonStar.setImageResource(R.drawable.ic_star_fill)
@@ -51,7 +52,7 @@ class CurrencyAdapterDelegate(private val itemSelected: ItemSelected) :
     }
 
     interface ItemSelected {
-        fun addToFavorite(item: RatesName)
+        fun removeFromFavorite(item: RatesName)
     }
 
 }

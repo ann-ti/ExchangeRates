@@ -10,12 +10,13 @@ import com.example.exchangerates.utils.Request
 import com.example.exchangerates.utils.listOfCurrency
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class HomeViewModel(
     private val currencyUseCase: CurrencyUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val loadStateFlow = MutableStateFlow<LoadState>(LoadState.EMPTY)
     val loadState: StateFlow<LoadState> = loadStateFlow
@@ -23,20 +24,15 @@ class HomeViewModel(
     private val ratesStateFlow = MutableStateFlow<List<RatesName>>(emptyList())
     val ratesState: StateFlow<List<RatesName>> = ratesStateFlow
 
-    fun getCurrency(base: String){
+    fun getCurrency(base: String) {
         viewModelScope.launch {
-            currencyUseCase.getCurrency(base).collect{ requestState ->
-                when(requestState){
+            currencyUseCase.getCurrency(base).collect { requestState ->
+                when (requestState) {
                     is Request.Loading -> {
                         loadStateFlow.value = LoadState.LOADING
                     }
                     is Request.Success -> {
                         loadStateFlow.value = LoadState.SUCCESS
-                        val currency= requestState.data.rates
-                        val listOfValueCurrency = listOfCurrency.map {
-                            getRateForCurrency(it, currency)?.let { it1 -> RatesName(it, it1) }
-                        }
-                        ratesStateFlow.value = listOfValueCurrency as List<RatesName>
                     }
                     is Request.Error -> {
                         loadStateFlow.value = LoadState.ERROR
@@ -46,39 +42,49 @@ class HomeViewModel(
         }
     }
 
-    private fun getRateForCurrency(currency: String, rates: Rates) = when (currency) {
-        "CAD" -> rates.cAD
-        "HKD" -> rates.hKD
-        "ISK" -> rates.iSK
-        "EUR" -> rates.eUR
-        "PHP" -> rates.pHP
-        "DKK" -> rates.dKK
-        "HUF" -> rates.hUF
-        "CZK" -> rates.cZK
-        "AUD" -> rates.aUD
-        "RON" -> rates.rON
-        "SEK" -> rates.sEK
-        "IDR" -> rates.iDR
-        "INR" -> rates.iNR
-        "BRL" -> rates.bRL
-        "RUB" -> rates.rUB
-        "HRK" -> rates.hRK
-        "JPY" -> rates.jPY
-        "THB" -> rates.tHB
-        "CHF" -> rates.cHF
-        "SGD" -> rates.sGD
-        "PLN" -> rates.pLN
-        "BGN" -> rates.bGN
-        "CNY" -> rates.cNY
-        "NOK" -> rates.nOK
-        "NZD" -> rates.nZD
-        "ZAR" -> rates.zAR
-        "USD" -> rates.uSD
-        "MXN" -> rates.mXN
-        "ILS" -> rates.iLS
-        "GBP" -> rates.gBP
-        "KRW" -> rates.kRW
-        "MYR" -> rates.mYR
-        else -> null
+    fun getListCurrencyDb(){
+        currencyUseCase.getFavoritesCurrency()
+            .onEach { ratesStateFlow.value = it }
+            .launchIn(viewModelScope)
     }
+
+    fun saveOrRemoveCurrency(currency: RatesName) {
+        viewModelScope.launch {
+            try {
+                if (currency.isFavorite) {
+                    removeCurrency(currency.nameRates)
+                } else saveCurrency(currency.nameRates)
+                currencyUseCase.updateCurrency(currency)
+            } catch (e: Throwable) {
+
+            }
+        }
+    }
+
+    fun saveCurrency(id: String) {
+        viewModelScope.launch {
+            try {
+                val favoriteCurrency = currencyUseCase.getCurrencyId(id).apply {
+                    this.isFavorite = true
+                }
+                currencyUseCase.updateCurrency(favoriteCurrency)
+            } catch (e: Throwable) {
+
+            }
+        }
+    }
+
+    fun removeCurrency(id: String) {
+        viewModelScope.launch {
+            try {
+                val favoriteCurrency = currencyUseCase.getCurrencyId(id).apply {
+                    this.isFavorite = false
+                }
+                currencyUseCase.updateCurrency(favoriteCurrency)
+            } catch (e: Throwable) {
+
+            }
+        }
+    }
+
 }
