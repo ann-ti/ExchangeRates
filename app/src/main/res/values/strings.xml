@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Currency Exchange Rates</string>
     <string name="app_hint">Currency Exchange Rate Tracking</string>
+    <string name="menu_value">By Value</string>
+    <string name="menu_alphabet">In alphabetical order</string>
     <string-array name="currency_codes">
         <item>CAD</item>
         <item>EUR</item>

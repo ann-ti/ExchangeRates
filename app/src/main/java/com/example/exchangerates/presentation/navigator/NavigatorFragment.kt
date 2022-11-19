@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.example.exchangerates.R
 import com.example.exchangerates.databinding.FragmentNavigatorBinding
 import com.example.exchangerates.utils.setupWithNavController
 
-class NavigatorFragment: Fragment(R.layout.fragment_navigator) {
+class NavigatorFragment : Fragment(R.layout.fragment_navigator) {
 
     private lateinit var binding: FragmentNavigatorBinding
 
@@ -34,21 +33,7 @@ class NavigatorFragment: Fragment(R.layout.fragment_navigator) {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
-
-        goToSort()
     }
-
-    private fun goToSort(){
-        binding.toolbar.setOnMenuItemClickListener {
-            val navController = Navigation.findNavController(
-                requireActivity(),
-                R.id.fragmentContainerView
-            )
-            navController.navigate(R.id.sortFragment)
-            true
-        }
-    }
-
 
     private fun setupBottomNavigationBar() {
         val navGraphIds = listOf(

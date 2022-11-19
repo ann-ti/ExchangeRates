@@ -2,23 +2,18 @@ package com.example.exchangerates.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.exchangerates.data.model.Rates
 import com.example.exchangerates.data.model.RatesName
 import com.example.exchangerates.domain.CurrencyUseCase
 import com.example.exchangerates.utils.LoadState
 import com.example.exchangerates.utils.Request
-import com.example.exchangerates.utils.listOfCurrency
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val currencyUseCase: CurrencyUseCase
 ) : ViewModel() {
 
-    private val loadStateFlow = MutableStateFlow<LoadState>(LoadState.EMPTY)
+    private val loadStateFlow = MutableStateFlow(LoadState.EMPTY)
     val loadState: StateFlow<LoadState> = loadStateFlow
 
     private val ratesStateFlow = MutableStateFlow<List<RatesName>>(emptyList())
@@ -42,7 +37,35 @@ class HomeViewModel(
         }
     }
 
-    fun getListCurrencyDb(){
+    fun sortValue() {
+        viewModelScope.launch {
+            currencyUseCase.getFavoritesCurrency()
+                .mapLatest {
+                    it.sortedBy { ratesName ->
+                        ratesName.valueRates
+                    }
+                }
+                .onEach { ratesStateFlow.value = it }
+                .launchIn(viewModelScope)
+
+        }
+    }
+
+    fun sortAlphabet() {
+        viewModelScope.launch {
+            currencyUseCase.getFavoritesCurrency()
+                .mapLatest {
+                    it.sortedBy { ratesName ->
+                        ratesName.nameRates
+                    }
+                }
+                .onEach { ratesStateFlow.value = it }
+                .launchIn(viewModelScope)
+        }
+
+    }
+
+    fun getListCurrencyDb() {
         currencyUseCase.getFavoritesCurrency()
             .onEach { ratesStateFlow.value = it }
             .launchIn(viewModelScope)
@@ -61,7 +84,7 @@ class HomeViewModel(
         }
     }
 
-    fun saveCurrency(id: String) {
+    private fun saveCurrency(id: String) {
         viewModelScope.launch {
             try {
                 val favoriteCurrency = currencyUseCase.getCurrencyId(id).apply {

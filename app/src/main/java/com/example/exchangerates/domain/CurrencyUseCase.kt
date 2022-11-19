@@ -9,7 +9,7 @@ import com.example.exchangerates.utils.listOfCurrency
 import kotlinx.coroutines.flow.Flow
 
 interface CurrencyUseCase {
-    suspend fun getCurrency(base:String): Flow<Request<CurrencyResponse>>
+    suspend fun getCurrency(base: String): Flow<Request<CurrencyResponse>>
     suspend fun getCurrencyId(currencyId: String): RatesName
     suspend fun updateCurrency(currency: RatesName)
     fun getFavoritesCurrency(): Flow<List<RatesName>>
@@ -25,12 +25,12 @@ class CurrencyUseCaseImpl(
             if (it is Request.Success) {
                 Request.Success(result)
                 val currency = it.data.rates
-                val listOfValueCurrency = listOfCurrency.map {
-                    getRateForCurrency(it, currency)?.let { it1 ->
+                val listOfValueCurrency = listOfCurrency.map { nameRates ->
+                    getRateForCurrency(nameRates, currency)?.let { it1 ->
                         RatesName(
-                            it,
+                            nameRates,
                             it1,
-                            getCurrencyId(it).isFavorite
+                            getCurrencyId(nameRates).isFavorite
                         )
                     }
                 }

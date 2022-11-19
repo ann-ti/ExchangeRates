@@ -1,7 +1,6 @@
 package com.example.exchangerates.di
 
 import com.example.exchangerates.data.network.CurrencyApi
-import com.example.exchangerates.data.network.NetInterceptor
 import com.example.exchangerates.data.network.RetrofitFactory
 import com.example.exchangerates.data.repository.CurrencyRepository
 import com.example.exchangerates.data.repository.CurrencyRepositoryImpl

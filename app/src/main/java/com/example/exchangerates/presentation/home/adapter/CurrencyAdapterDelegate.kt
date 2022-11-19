@@ -21,7 +21,7 @@ class CurrencyAdapterDelegate(private val itemSelected: ItemSelected) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(R.layout.item_currency), itemSelected, )
+        return Holder(parent.inflate(R.layout.item_currency), itemSelected)
     }
 
     override fun onBindViewHolder(

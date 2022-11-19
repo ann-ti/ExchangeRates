@@ -16,7 +16,8 @@ import com.example.exchangerates.presentation.favorite.adapter.FavoriteAdapterDe
 import com.example.exchangerates.presentation.home.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoriteFragment: Fragment(R.layout.fragment_favorite), FavoriteAdapterDelegate.ItemSelected {
+class FavoriteFragment : Fragment(R.layout.fragment_favorite),
+    FavoriteAdapterDelegate.ItemSelected {
 
     private lateinit var binding: FragmentFavoriteBinding
     private val adapterFavorite: FavoriteAdapter by lazy { FavoriteAdapter(this) }
@@ -27,7 +28,7 @@ class FavoriteFragment: Fragment(R.layout.fragment_favorite), FavoriteAdapterDel
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -58,13 +59,12 @@ class FavoriteFragment: Fragment(R.layout.fragment_favorite), FavoriteAdapterDel
     override fun removeFromFavorite(item: RatesName) {
         AlertDialog.Builder(context)
             .setMessage("Вы точно хотите удалить из избранного?")
-            .setPositiveButton("да, точно") { dialog, which ->
+            .setPositiveButton("да, точно") { _, _ ->
                 viewModelHome.removeCurrency(item.nameRates)
             }
             .setNegativeButton("нет", null)
             .create()
             .show()
     }
-
 
 }

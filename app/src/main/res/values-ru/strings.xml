@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Обменные курсы валют</string>
     <string name="app_hint">Отслеживание Курсов Валют</string>
+    <string name="menu_value">По значению</string>
+    <string name="menu_alphabet">В алфавитном порядке</string>
     <string-array name="currency_codes">
         <item>CAD</item>
         <item>EUR</item>

@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.onEach
 
 class FavoriteViewModel(
     private val currencyUseCase: CurrencyUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val currencyMutableState = MutableStateFlow<List<RatesName>>(emptyList())
     val currency: StateFlow<List<RatesName>> = currencyMutableState
@@ -28,8 +28,8 @@ class FavoriteViewModel(
     fun getFavoritesCurrency() {
         currencyUseCase.getFavoritesCurrency()
             .onEach {
-                val listFavCurrency = it.filter {
-                    it.isFavorite
+                val listFavCurrency = it.filter { ratesName ->
+                    ratesName.isFavorite
                 }
                 currencyMutableState.value = listFavCurrency
             }

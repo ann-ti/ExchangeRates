@@ -2,7 +2,6 @@ package com.example.exchangerates.presentation.favorite.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.exchangerates.data.model.RatesName
-import com.example.exchangerates.presentation.home.adapter.CurrencyAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 class FavoriteAdapter(itemSelected: FavoriteAdapterDelegate.ItemSelected) :

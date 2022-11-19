@@ -34,6 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), CurrencyAdapterDelegate.I
 
         setRecyclerViewCurrency()
         getCurrency()
+        sort()
     }
 
     private fun setRecyclerViewCurrency() {
@@ -59,5 +60,31 @@ class HomeFragment : Fragment(R.layout.fragment_home), CurrencyAdapterDelegate.I
 
     override fun addToFavorite(item: RatesName) {
         viewModel.saveOrRemoveCurrency(item)
+    }
+
+    private fun sort() {
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menuSortValue -> {
+                    it.isChecked = true
+                    viewModel.sortValue()
+                    lifecycleScope.launchWhenCreated {
+                        viewModel.ratesState.collect {
+                            adapterCurrency.items = it
+                        }
+                    }
+                }
+                R.id.menuSortAlphabet -> {
+                    it.isChecked = true
+                    viewModel.sortAlphabet()
+                    lifecycleScope.launchWhenCreated {
+                        viewModel.ratesState.collect {
+                            adapterCurrency.items = it
+                        }
+                    }
+                }
+            }
+            false
+        }
     }
 }

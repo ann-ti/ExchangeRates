@@ -1,8 +1,6 @@
 package com.example.exchangerates.presentation.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.exchangerates.data.model.CurrencyResponse
-import com.example.exchangerates.data.model.Rates
 import com.example.exchangerates.data.model.RatesName
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
