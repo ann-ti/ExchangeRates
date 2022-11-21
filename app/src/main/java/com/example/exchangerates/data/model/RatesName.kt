@@ -11,5 +11,5 @@ data class RatesName(
     @PrimaryKey(autoGenerate = false)
     val nameRates: String,
     val valueRates: Double,
-    var isFavorite: Boolean
-): Parcelable
+    var isFavorite: Boolean?
+) : Parcelable

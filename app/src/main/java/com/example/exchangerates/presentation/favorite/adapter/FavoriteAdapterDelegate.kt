@@ -45,7 +45,7 @@ class FavoriteAdapterDelegate(private val itemSelected: ItemSelected) :
             binding.buttonStar.setOnClickListener {
                 itemSelected.removeFromFavorite(ratesName)
             }
-            if (ratesName.isFavorite) {
+            if (ratesName.isFavorite!!) {
                 binding.buttonStar.setImageResource(R.drawable.ic_star_fill)
             } else binding.buttonStar.setImageResource(R.drawable.ic_star_outline)
         }

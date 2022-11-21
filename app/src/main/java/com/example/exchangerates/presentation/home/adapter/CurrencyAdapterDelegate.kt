@@ -44,7 +44,7 @@ class CurrencyAdapterDelegate(private val itemSelected: ItemSelected) :
             binding.buttonStar.setOnClickListener {
                 itemSelected.addToFavorite(ratesName)
             }
-            if (ratesName.isFavorite) {
+            if (ratesName.isFavorite!!) {
                 binding.buttonStar.setImageResource(R.drawable.ic_star_fill)
             } else binding.buttonStar.setImageResource(R.drawable.ic_star_outline)
         }

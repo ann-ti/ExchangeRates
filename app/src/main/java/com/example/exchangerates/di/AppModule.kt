@@ -18,7 +18,7 @@ import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
 const val BASE_URL = "https://api.apilayer.com/"
-const val API_KEY = "X0GIuqUQZnDNG1ff1Xr1RZnJCTGxSfXB"
+const val API_KEY = "Zj6icoiOnXPlotE2rCoeuwDCumTH9KhP"
 
 val appModule = module {
 

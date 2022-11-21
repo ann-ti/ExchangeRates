@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable-v24/ic_back.xml" value="0.179" />
+        <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable-v24/ic_emotion_unhappy.xml" value="0.1335" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable-v24/ic_heart_line.xml" value="0.193" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable-v24/ic_home_line.xml" value="0.1" />
+        <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable-v24/ic_search_eye_line.xml" value="0.19" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable/fragment_navigator.xml" value="0.193" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable/ic_sort.xml" value="0.133" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/drawable/ic_star_fill.xml" value="0.1645" />
@@ -17,6 +19,7 @@
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/layout/fragment_sort.xml" value="0.25416666666666665" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/layout/fragment_splash.xml" value="0.22644927536231885" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/layout/item_currency.xml" value="0.4" />
+        <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/layout/view_error.xml" value="0.25416666666666665" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
         <entry key="..\:/ExchangeRates/ExchangeRates/app/src/main/res/menu/menu_toolbar.xml" value="0.25416666666666665" />
       </map>

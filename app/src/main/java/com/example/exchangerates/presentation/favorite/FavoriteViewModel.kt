@@ -5,10 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.exchangerates.data.model.RatesName
 import com.example.exchangerates.domain.CurrencyUseCase
 import com.hadilq.liveevent.LiveEvent
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 
 class FavoriteViewModel(
     private val currencyUseCase: CurrencyUseCase
@@ -27,11 +24,17 @@ class FavoriteViewModel(
 
     fun getFavoritesCurrency() {
         currencyUseCase.getFavoritesCurrency()
-            .onEach {
-                val listFavCurrency = it.filter { ratesName ->
-                    ratesName.isFavorite
+            .mapLatest {
+                it.filter { ratesName ->
+                    ratesName.isFavorite!!
                 }
-                currencyMutableState.value = listFavCurrency
+            }
+            .onEach {
+                if (it.isNullOrEmpty()) {
+                    errorData.postValue("Список пуст")
+                    errorViewData.postValue(true)
+                } else errorView.postValue(false)
+                currencyMutableState.value = it
             }
             .launchIn(viewModelScope)
     }

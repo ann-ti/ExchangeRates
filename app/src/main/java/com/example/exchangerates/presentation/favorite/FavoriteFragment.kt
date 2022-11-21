@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,6 +55,18 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite),
                 adapterFavorite.items = it
             }
         }
+        viewModel.error.observe(viewLifecycleOwner) { errorText ->
+            binding.frameAlarmError.setText(errorText)
+        }
+        viewModel.errorView.observe(viewLifecycleOwner) { error ->
+            binding.frameAlarmError.setImage(R.drawable.ic_emotion_unhappy)
+            showError(error)
+        }
+    }
+
+    private fun showError(show: Boolean) {
+        binding.listCurrencyFav.isVisible = !show
+        binding.frameAlarmError.isVisible = show
     }
 
     override fun removeFromFavorite(item: RatesName) {

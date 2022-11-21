@@ -74,7 +74,7 @@ class HomeViewModel(
     fun saveOrRemoveCurrency(currency: RatesName) {
         viewModelScope.launch {
             try {
-                if (currency.isFavorite) {
+                if (currency.isFavorite == true) {
                     removeCurrency(currency.nameRates)
                 } else saveCurrency(currency.nameRates)
                 currencyUseCase.updateCurrency(currency)
