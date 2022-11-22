@@ -30,8 +30,7 @@ class CurrencyUseCaseImpl(
                         RatesName(
                             nameRates,
                             it1,
-                            //getCurrencyId(nameRates).isFavorite ?: false
-                        false
+                            getCurrencyId(nameRates).isFavorite ?: false
                         )
                     }
                 }
